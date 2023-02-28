@@ -24,6 +24,11 @@ import {Portal} from 'react-native-portalize';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {res} from '../utils/mocks/movieRes';
 import Trend from '../../assests/icons/trend.svg';
+import Close from '../../assests/icons/close2.svg';
+import PlayFull from '../../assests/icons/playFull.svg';
+import Download from '../../assests/icons/download.svg';
+import Plus from '../../assests/icons/plus.svg';
+import Share from '../../assests/icons/shareFull.svg';
 
 type Props = {
   onClose?: () => void;
@@ -31,6 +36,25 @@ type Props = {
   visible: boolean;
   selected?: any;
 };
+
+const icons = [
+  {
+    name: 'Play',
+    icon: <PlayFull width={30} height={30} fill={'#fff'} />,
+  },
+  {
+    name: 'Download',
+    icon: <Download width={30} height={30} fill={'#fff'} />,
+  },
+  {
+    name: 'My List',
+    icon: <Plus width={30} height={30} fill={'#fff'} />,
+  },
+  {
+    name: 'Share',
+    icon: <Share width={30} height={30} fill={'#fff'} />,
+  },
+];
 
 const BottomSheetWrapper = ({
   onOpen,
@@ -64,7 +88,7 @@ const BottomSheetWrapper = ({
     return () => backHandler.remove();
   }, [onClose, visible]);
 
-  const snapPoints = ['50%'];
+  const snapPoints = ['42%'];
   const shortify = (text: string) => `${text?.substring(0, 150)}...`;
 
   const {
@@ -80,10 +104,7 @@ const BottomSheetWrapper = ({
       : bottomSheetRef?.current?.close();
   }, [visible]);
 
-  const renderCustomHandleComponent = useCallback(
-    () => <View style={styles.smallerDividerStyle} />,
-    [],
-  );
+  const renderCustomHandleComponent = useCallback(() => <View />, []);
 
   const renderCustomBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -111,12 +132,12 @@ const BottomSheetWrapper = ({
         enableContentPanningGesture
         enablePanDownToClose={true}
         animateOnMount
+        // handleComponent={() => <></>}
         onChange={index => (index === -1 ? onClose?.() : onOpen?.())}
         snapPoints={animatedSnapPoints}>
         <BottomSheetView
           onLayout={handleContentLayout}
           style={styles.container}>
-          {/* {children} */}
           <View>
             <View style={styles.main}>
               <Image
@@ -133,11 +154,10 @@ const BottomSheetWrapper = ({
                   }}>
                   <Text style={styles.title}>{selected?.original_title}</Text>
                   <TouchableOpacity
+                    activeOpacity={0.5}
                     style={styles.iconDiv}
-                    // onPress={() => close && close?.()}
-                  >
-                    {/* <AntDesignIcon name="closecircle" size={30} color="grey" /> */}
-                    <Trend width={30} height={30} fill={'#fff'} />
+                    onPress={() => onClose && onClose?.()}>
+                    <Close width={25} height={25} fill={'#fff'} />
                   </TouchableOpacity>
                 </View>
                 <View style={{flexDirection: 'row', marginVertical: 10}}>
@@ -153,36 +173,14 @@ const BottomSheetWrapper = ({
               </View>
             </View>
             <View style={styles.icons}>
-              <View style={styles.icon}>
-                <View style={styles.iconDivCo}>
-                  {/* <EntypoIcons name="controller-play" size={30} color="grey" /> */}
-                  <Trend width={30} height={30} fill={'#fff'} />
+              {icons.map((item, i) => (
+                <View key={i} style={styles.icon}>
+                  {/* <FontAwesomeIcons name="share-alt" size={30} color="white" /> */}
+                  {/* <Trend width={30} height={30} fill={'#fff'} /> */}
+                  {item.icon}
+                  <Text style={styles.min2}>{item.name}</Text>
                 </View>
-                <Text style={styles.min2}>Play</Text>
-              </View>
-              <View style={styles.icon}>
-                <View style={styles.iconDivCo2}>
-                  {/* <MaterialCommunityIcons
-                  name="download-circle"
-                  size={37}
-                  color="grey"
-                /> */}
-                  <Trend width={30} height={30} fill={'#fff'} />
-                </View>
-                <Text style={styles.min2}>Download</Text>
-              </View>
-              <View style={styles.icon}>
-                <View style={styles.iconDivCo}>
-                  {/* <AntDesignIcon name="pluscircle" size={30} color="grey" /> */}
-                  <Trend width={30} height={30} fill={'#fff'} />
-                </View>
-                <Text style={styles.min2}>My List</Text>
-              </View>
-              <View style={styles.icon}>
-                {/* <FontAwesomeIcons name="share-alt" size={30} color="white" /> */}
-                <Trend width={30} height={30} fill={'#fff'} />
-                <Text style={styles.min2}>Share</Text>
-              </View>
+              ))}
             </View>
             <View style={styles.lineStyle} />
             <View
@@ -221,17 +219,7 @@ const styles = StyleSheet.create({
   backbg: {
     backgroundColor: '#000000d2',
   },
-  smallerDividerStyle: {
-    width: 50,
-    borderRadius: 100,
-    marginBottom: 20,
-    marginTop: 15,
-    height: 5,
-    alignSelf: 'center',
-    backgroundColor: '#D0CECD',
-  },
   background: {
-    // backgroundColor: '#FCFCFC',
     backgroundColor: '#333232',
   },
   main: {
@@ -260,20 +248,7 @@ const styles = StyleSheet.create({
     flex: 8,
   },
   right: {flex: 3, color: 'white'},
-  iconDiv: {backgroundColor: 'white', borderRadius: 50, height: 30, flex: 1},
-  iconDivCo: {
-    backgroundColor: 'white',
-    borderRadius: 50,
-    height: 35,
-    width: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconDivCo2: {
-    backgroundColor: 'white',
-    borderRadius: 50,
-    height: 36,
-    width: 36,
+  iconDiv: {
     justifyContent: 'center',
     alignItems: 'center',
   },
