@@ -20,7 +20,9 @@ const BottomNavTabs = () => {
         options={{
           tabBarBadge: 1,
           title: 'Home',
-          tabBarIcon: () => <Close1 width={30} height={30} fill={'red'} />,
+          tabBarIcon: ({color}) => (
+            <Close1 width={30} height={30} fill={color} />
+          ),
         }}
       />
       <Tab.Screen
@@ -28,7 +30,9 @@ const BottomNavTabs = () => {
         component={SearchStack}
         options={{
           title: 'Search',
-          tabBarIcon: () => <Close1 width={30} height={30} fill={'red'} />,
+          tabBarIcon: ({color}) => (
+            <Close1 width={30} height={30} fill={color} />
+          ),
         }}
       />
     </Tab.Navigator>
