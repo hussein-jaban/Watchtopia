@@ -20,7 +20,6 @@ const BottomNavTabs = () => {
         name="HomeTab"
         component={HomeStack}
         options={{
-          // tabBarBadge: 1,
           title: 'Home',
           tabBarIcon: ({color}) => <Home width={30} height={30} fill={color} />,
         }}

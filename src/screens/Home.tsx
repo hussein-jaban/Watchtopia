@@ -1,8 +1,6 @@
-import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 import {HomeProps} from '../types/nav.types';
-// import Close2 from '../../assests/icons/close2.svg';
-// import Close1 from '../../assests/icons/closeIcon.svg';
 import SlideShow from '../components/SlideShow';
 import {imgs, res} from '../utils/mocks/movieRes';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -17,6 +15,9 @@ const resData = (arr: any) => {
 };
 
 const Home = ({navigation}: HomeProps) => {
+  console.log('====================================');
+  console.log(navigation);
+  console.log('====================================');
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>

@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   },
   main: {
     marginTop: 30,
-    // marginBottom: 20,
     flexDirection: 'column',
     gap: 10,
   },
