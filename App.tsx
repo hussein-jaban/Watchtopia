@@ -36,7 +36,7 @@ function DetailsScreen({navigation}: DetailsProps) {
   );
 }
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
