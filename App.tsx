@@ -8,21 +8,22 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  // SafeAreaView,
+  // ScrollView,
+  // StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
   View,
 } from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
+  // DebugInstructions,
+  // Header,
+  // LearnMoreLinks,
+  // ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 type SectionProps = PropsWithChildren<{
@@ -56,43 +57,33 @@ function Section({children, title}: SectionProps): JSX.Element {
 }
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  // const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <GestureHandlerRootView>
+      <Section title="My test section">
+        <View>
+          <Text>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
+            soluta sunt aliquid quae aut quaerat, illo facere mollitia, maiores
+            itaque explicabo necessitatibus consequatur officia, asperiores
+            dolore eveniet repudiandae beatae. Autem doloremque voluptatem
+            veritatis optio alias dolores perspiciatis consequatur quam magni
+            error sint rerum, repellat cum quae dolorum aut reiciendis tenetur
+            facilis. Enim ut, in itaque deleniti mollitia vel aut rem provident
+            repellendus ducimus molestiae ea temporibus exercitationem voluptate
+            eveniet voluptas sunt quis! Dolor soluta et ullam nisi, molestias
+            quasi adipisci illum tempora. Mollitia blanditiis ut eius
+            cupiditate, sapiente minima magni adipisci doloribus magnam officiis
+            delectus dicta incidunt consequuntur voluptas assumenda?
+          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </Section>
+    </GestureHandlerRootView>
   );
 }
 
