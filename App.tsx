@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import BottomNavTabs from './src/navigations/bottomTabs/BottomNavTabs';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {StatusBar} from 'react-native';
 
 // function HomeScreen({navigation}: HomeProps) {
 //   // const {data, status} = useQuery('users', fetchUsers);
@@ -48,6 +49,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 function App() {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
+      <StatusBar barStyle={'light-content'} />
       <NavigationContainer>
         <BottomNavTabs />
       </NavigationContainer>
