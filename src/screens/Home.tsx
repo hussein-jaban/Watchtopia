@@ -93,11 +93,7 @@ const Home = ({navigation}: HomeProps) => {
           />
         ))}
       </ScrollView>
-      <BottomSheetWrapper visible={isOpen} onClose={onClose}>
-        <View>
-          <Text>Bottom sheet</Text>
-        </View>
-      </BottomSheetWrapper>
+      <BottomSheetWrapper visible={isOpen} onClose={onClose} />
     </SafeAreaView>
   );
 };
