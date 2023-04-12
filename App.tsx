@@ -1,12 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {RootStackParamList} from './src/types/nav.types';
-import Home from './src/screens/Home';
-import Details from './src/screens/Details';
-
-// type DetailsProps = NativeStackScreenProps<RootStackParamList, 'Details'>;
+import BottomNavTabs from './src/navigations/bottomTabs/BottomNavTabs';
 
 // function HomeScreen({navigation}: HomeProps) {
 //   // const {data, status} = useQuery('users', fetchUsers);
@@ -49,15 +44,14 @@ import Details from './src/screens/Details';
 //   );
 // }
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      {/* <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
+      <BottomNavTabs />
     </NavigationContainer>
   );
 }
