@@ -1,6 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Close1 from '../../../assests/icons/closeIcon.svg';
+import Trend from '../../../assests/icons/trend.svg';
+import Home from '../../../assests/icons/home-full.svg';
 import HomeStack from '../stacks/HomeStack';
 import SearchStack from '../stacks/SearchStack';
 
@@ -10,28 +11,27 @@ const BottomNavTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'grey',
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: '#505051',
         headerShown: false,
+        tabBarStyle: {backgroundColor: '#151515', borderTopWidth: 0},
       }}>
       <Tab.Screen
         name="HomeTab"
         component={HomeStack}
         options={{
-          tabBarBadge: 1,
+          // tabBarBadge: 1,
           title: 'Home',
-          tabBarIcon: ({color}) => (
-            <Close1 width={30} height={30} fill={color} />
-          ),
+          tabBarIcon: ({color}) => <Home width={30} height={30} fill={color} />,
         }}
       />
       <Tab.Screen
         name="SearchTab"
         component={SearchStack}
         options={{
-          title: 'Search',
+          title: 'Trending',
           tabBarIcon: ({color}) => (
-            <Close1 width={30} height={30} fill={color} />
+            <Trend width={30} height={30} fill={color} />
           ),
         }}
       />
