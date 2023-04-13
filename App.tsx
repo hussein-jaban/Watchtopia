@@ -1,6 +1,7 @@
 // In App.js in a new project
 
-import React, {useCallback, useEffect} from 'react';
+// import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {API_KEY} from '@env';
@@ -9,10 +10,11 @@ import {
   NativeStackScreenProps,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import {
-  // getMovieTypeData,
-  getGenreData,
-} from './src/services/api';
+// import {
+//   // getMovieTypeData,
+//   getGenreData,
+// } from './src/services/api';
+// import {subGenres} from './src/constants/genreList';
 
 type RootStackParamList = {
   Home: undefined;
@@ -22,26 +24,27 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 type DetailsProps = NativeStackScreenProps<RootStackParamList, 'Details'>;
 
 function HomeScreen({navigation}: HomeProps) {
-  const fetchData = useCallback(async () => {
-    // setLoading(true);
-    // const movietypes = ['popular', 'now_playing', 'top_rated', 'upcoming'];
-    // const myPromises = movietypes.map(
-    //   async item => await getMovieTypeData(item),
-    // );
-    const ids = [12, 878];
-    const myPromises = ids.map(async item => await getGenreData('movie', item));
-    const res = await Promise.all(myPromises);
-    console.log('====================================');
-    console.log('====================================');
-    console.log(res);
-    console.log('====================================');
-    console.log('====================================');
-  }, []);
+  // const fetchData = useCallback(async () => {
+  //   // setLoading(true);
+  //   // const movietypes = ['popular', 'now_playing', 'top_rated', 'upcoming'];
+  //   // const myPromises = movietypes.map(
+  //   //   async item => await getMovieTypeData(item),
+  //   // );
+  //   const myPromises = subGenres.map(
+  //     async item => await getGenreData('movie', item.id),
+  //   );
+  //   const res = await Promise.all(myPromises);
+  //   console.log('====================================');
+  //   console.log('====================================');
+  //   console.log(res);
+  //   console.log('====================================');
+  //   console.log('====================================');
+  // }, []);
 
-  useEffect(() => {
-    fetchData().then().catch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchData().then().catch();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   return (
     <View
       style={{
