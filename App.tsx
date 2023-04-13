@@ -3,6 +3,8 @@
 import * as React from 'react';
 import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {API_KEY} from '@env';
+
 import {
   NativeStackScreenProps,
   createNativeStackNavigator,
@@ -19,6 +21,7 @@ function HomeScreen({navigation}: HomeProps) {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Home Screen</Text>
+      <Text>{API_KEY}</Text>
       <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
