@@ -10,23 +10,23 @@ const getGenreData = async (type: string, id: number, page?: number) => {
     }`,
   );
   const data = await res.json();
-  return data.results;
+  return data;
 };
 const getMovieTypeData = async (type: string) => {
   const res = await fetch(`${url}/movie/${type}?api_key=${apiKey}`);
   const data = await res.json();
-  return data.results;
+  return data;
 };
 const getTVTypeData = async (type: string) => {
   const res = await fetch(`${url}/tv/${type}?api_key=${apiKey}`);
   const data = await res.json();
-  return data.results;
+  return data;
 };
 
 const getPopularTv = async () => {
   const res = await fetch(`${url}/tv/popular?api_key=${apiKey}`);
   const data = await res.json();
-  return data.results;
+  return data;
 };
 
 // const rt = [
