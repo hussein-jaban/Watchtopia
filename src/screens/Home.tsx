@@ -8,7 +8,6 @@ const Home = ({navigation}: HomeProps) => {
   return (
     <View style={styles.main}>
       <Text>Home Screen</Text>
-      {/* <Text>{API_KEY}</Text> */}
       <Close2 width={50} height={50} />
       <Close1 width={500} height={500} fill={'red'} />
       <Button
