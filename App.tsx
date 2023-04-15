@@ -2,6 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import BottomNavTabs from './src/navigations/bottomTabs/BottomNavTabs';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 // function HomeScreen({navigation}: HomeProps) {
 //   // const {data, status} = useQuery('users', fetchUsers);
@@ -46,13 +47,11 @@ import BottomNavTabs from './src/navigations/bottomTabs/BottomNavTabs';
 
 function App() {
   return (
-    <NavigationContainer>
-      {/* <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator> */}
-      <BottomNavTabs />
-    </NavigationContainer>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <NavigationContainer>
+        <BottomNavTabs />
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 
