@@ -6,7 +6,7 @@ import {
   View,
   Text,
 } from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 
 type SctionMovie = {id: number; imgUrl: string};
 
@@ -16,13 +16,37 @@ type Section = {
 };
 
 const SectionSlider = ({text, movies}: Section) => {
+  const randMovies = useMemo(() => {
+    return randomize(movies);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function randomize(values: any) {
+    let index = values.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (index !== 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * index);
+      index--;
+
+      // And swap it with the current element.
+      [values[index], values[randomIndex]] = [
+        values[randomIndex],
+        values[index],
+      ];
+    }
+    return values;
+  }
+
   return (
     <View style={styles.main}>
       <Text style={styles.textColor}>{text}</Text>
       <FlatList
         horizontal
         style={styles.imgScroll}
-        data={movies}
+        data={randMovies}
         keyExtractor={(item: SctionMovie) => String(item.id)}
         renderItem={({item}) => (
           <TouchableOpacity>
