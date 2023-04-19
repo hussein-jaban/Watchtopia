@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, Pressable, Text} from 'react-native';
 import React, {useState} from 'react';
 import {HomeProps} from '../types/nav.types';
 import SlideShow from '../components/SlideShow';
@@ -6,7 +6,7 @@ import {imgs, res} from '../utils/mocks/movieRes';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SectionSlider from '../components/SectionSlider';
 import {subGenres} from '../constants/genreList';
-import ModalComponent from '../components/Modal';
+import ModalComponent from '../components/ModalComponent';
 
 const resData = (arr: any) => {
   return arr.map((item: any) => ({
@@ -22,6 +22,11 @@ const Home = ({navigation}: HomeProps) => {
     <SafeAreaView style={styles.main}>
       <ScrollView>
         <SlideShow listImages={imgs} />
+        <Pressable
+          // style={[styles.button, styles.buttonOpen]}
+          onPress={() => setModalVisible(true)}>
+          <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable>
         <ModalComponent
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -46,5 +51,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#0F0E0E',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
