@@ -3,14 +3,11 @@ import {
   Alert,
   Modal,
   StyleSheet,
-  // Text,
   Pressable,
-  // TouchableOpacity,
   View,
   ScrollView,
 } from 'react-native';
 import CloseIcon from '../../assests/icons/close-clean.svg';
-// import {genres} from '../constants/genreList';
 
 type Props = {
   modalVisible: boolean;
@@ -23,43 +20,33 @@ const ModalComponent = ({
   children,
 }: PropsWithChildren<Props>) => {
   return (
-    <>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        statusBarTranslucent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.main}>
-          <View style={styles.modalView}>
-            <ScrollView
-              style={styles.scroll}
-              showsVerticalScrollIndicator={false}>
-              {/* {genres.map(genre => (
-                <TouchableOpacity
-                  activeOpacity={0.5}
-                  key={genre.id}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.modalText}>{genre.name}</Text>
-                </TouchableOpacity>
-              ))} */}
-              {children}
-              <View style={{marginBottom: 100}} />
-            </ScrollView>
-            <View style={styles.closeView}>
-              <Pressable
-                style={styles.buttonClose2}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <CloseIcon width={50} height={50} fill="#000" />
-              </Pressable>
-            </View>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      statusBarTranslucent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible(!modalVisible);
+      }}>
+      <View style={styles.main}>
+        <View style={styles.modalView}>
+          <ScrollView
+            style={styles.scroll}
+            showsVerticalScrollIndicator={false}>
+            {children}
+            <View style={styles.emp} />
+          </ScrollView>
+          <View style={styles.closeView}>
+            <Pressable
+              style={styles.buttonClose2}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <CloseIcon width={50} height={50} fill="#000" />
+            </Pressable>
           </View>
         </View>
-      </Modal>
-    </>
+      </View>
+    </Modal>
   );
 };
 
@@ -71,13 +58,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
     backgroundColor: 'rgba(0, 0, 0, 0.855)',
-    // backgroundColor: 'green',
-    // width: '100%',
-    // height: '100%',
   },
+  emp: {marginBottom: 100},
   modalView: {
     margin: 20,
-    // backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -107,7 +91,6 @@ const styles = StyleSheet.create({
   closeView: {
     position: 'absolute',
     bottom: 10,
-    // backgroundColor: 'rgba(0, 0, 0, 0.932)',
     width: '100%',
     height: 130,
     justifyContent: 'center',
