@@ -3,52 +3,11 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import BottomNavTabs from './src/navigations/bottomTabs/BottomNavTabs';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {StatusBar} from 'react-native';
-
-// function HomeScreen({navigation}: HomeProps) {
-//   // const {data, status} = useQuery('users', fetchUsers);
-//   // const fetchData = useCallback(async () => {
-//   //   // setLoading(true);
-//   //   // const movietypes = ['popular', 'now_playing', 'top_rated', 'upcoming'];
-//   //   // const myPromises = movietypes.map(
-//   //   //   async item => await getMovieTypeData(item),
-//   //   // );
-//   //   const myPromises = subGenres.map(
-//   //     async item => await getGenreData('movie', item.id),
-//   //   );
-//   //   const res = await Promise.all(myPromises);
-//   //   console.log('====================================');
-//   //   console.log('====================================');
-//   //   console.log(res);
-//   //   console.log('====================================');
-//   //   console.log('====================================');
-//   // }, []);
-
-//   // useEffect(() => {
-//   //   fetchData().then().catch();
-//   //   // eslint-disable-next-line react-hooks/exhaustive-deps
-//   // }, []);
-//   return (
-//     <View
-//       style={{
-//         flex: 1,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         backgroundColor: 'black',
-//       }}>
-//       <Text>Home Screen</Text>
-//       <Text>{API_KEY}</Text>
-//       <Button
-//         title="Go to Details"
-//         onPress={() => navigation.navigate('Details')}
-//       />
-//     </View>
-//   );
-// }
+import {StatusBar, StyleSheet} from 'react-native';
 
 function App() {
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={styles.main}>
       <StatusBar barStyle={'light-content'} />
       <NavigationContainer>
         <BottomNavTabs />
@@ -56,5 +15,7 @@ function App() {
     </GestureHandlerRootView>
   );
 }
-
+const styles = StyleSheet.create({
+  main: {flex: 1},
+});
 export default App;
