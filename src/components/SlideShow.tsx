@@ -5,7 +5,7 @@ import {
   View,
   // ActivityIndicator
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
@@ -13,6 +13,8 @@ import Animated, {
 import {StyleSheet, Dimensions} from 'react-native';
 import {Imgs} from '../utils/mocks/movieRes';
 import {genres} from '../constants/genreList';
+import Arrowdown from '../../assests/icons/arrowdown.svg';
+import ModalComponent from './ModalComponent';
 
 type Props = {
   listImages: Imgs[];
@@ -21,6 +23,7 @@ type Props = {
 const {width, height} = Dimensions.get('window');
 
 const SlideShow = ({listImages}: Props) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const translateX = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateX.value = event.contentOffset.x;
@@ -60,6 +63,34 @@ const SlideShow = ({listImages}: Props) => {
           </View>
         </View>
       ))}
+      <View style={styles.catWrapper}>
+        <View
+          style={styles.catSection}
+          // onPress={() => setModalVisible(!modalVisible)}
+        >
+          <Text style={styles.textStyle}>Home</Text>
+          <Arrowdown width={20} height={20} fill="#dedede" />
+        </View>
+        <TouchableOpacity
+          style={styles.catSection}
+          activeOpacity={0.7}
+          onPress={() => setModalVisible(!modalVisible)}>
+          <Text style={styles.textStyle}>Categories</Text>
+          <Arrowdown width={20} height={20} fill="#dedede" />
+        </TouchableOpacity>
+      </View>
+      <ModalComponent
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}>
+        {genres.map(genre => (
+          <TouchableOpacity
+            activeOpacity={0.5}
+            key={genre.id}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.modalText}>{genre.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ModalComponent>
     </Animated.ScrollView>
   );
 };
@@ -73,6 +104,31 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     borderRadius: 20,
   },
+  modalText: {
+    marginTop: 25,
+    marginBottom: 25,
+    textAlign: 'center',
+    color: '#fffefea1',
+    fontSize: 20,
+  },
+  catSection: {
+    flexDirection: 'row',
+    gap: 5,
+  },
+
+  catWrapper: {
+    position: 'absolute',
+    top: 30,
+    left: 20,
+    flexDirection: 'row',
+    gap: 20,
+  },
+  textStyle: {
+    color: '#dedede',
+    fontWeight: 'bold',
+    fontSize: 15,
+    // textAlign: 'center',
+  },
   loadingImage: {
     width: width,
     height: height - 270,
@@ -81,6 +137,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'column',
+    position: 'relative',
   },
   gn: {
     flexDirection: 'row',
