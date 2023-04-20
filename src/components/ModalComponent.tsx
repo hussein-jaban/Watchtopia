@@ -1,23 +1,27 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {
   Alert,
   Modal,
   StyleSheet,
-  Text,
+  // Text,
   Pressable,
-  TouchableOpacity,
+  // TouchableOpacity,
   View,
   ScrollView,
 } from 'react-native';
 import CloseIcon from '../../assests/icons/close-clean.svg';
-import {genres} from '../constants/genreList';
+// import {genres} from '../constants/genreList';
 
 type Props = {
   modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ModalComponent = ({modalVisible, setModalVisible}: Props) => {
+const ModalComponent = ({
+  modalVisible,
+  setModalVisible,
+  children,
+}: PropsWithChildren<Props>) => {
   return (
     <>
       <Modal
@@ -31,15 +35,18 @@ const ModalComponent = ({modalVisible, setModalVisible}: Props) => {
         }}>
         <View style={styles.main}>
           <View style={styles.modalView}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              {genres.map(genre => (
+            <ScrollView
+              style={styles.scroll}
+              showsVerticalScrollIndicator={false}>
+              {/* {genres.map(genre => (
                 <TouchableOpacity
                   activeOpacity={0.5}
                   key={genre.id}
                   onPress={() => setModalVisible(!modalVisible)}>
                   <Text style={styles.modalText}>{genre.name}</Text>
                 </TouchableOpacity>
-              ))}
+              ))} */}
+              {children}
               <View style={{marginBottom: 100}} />
             </ScrollView>
             <View style={styles.closeView}>
@@ -76,6 +83,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
+  },
+  scroll: {
+    width: '100%',
   },
   button: {
     borderRadius: 20,
