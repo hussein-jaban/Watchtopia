@@ -1,11 +1,12 @@
 import {ScrollView, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {HomeProps} from '../types/nav.types';
 import SlideShow from '../components/SlideShow';
 import {imgs, res} from '../utils/mocks/movieRes';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SectionSlider from '../components/SectionSlider';
 import {subGenres} from '../constants/genreList';
+import ModalComponent from '../components/Modal';
 
 const resData = (arr: any) => {
   return arr.map((item: any) => ({
@@ -15,13 +16,16 @@ const resData = (arr: any) => {
 };
 
 const Home = ({navigation}: HomeProps) => {
-  console.log('====================================');
+  const [modalVisible, setModalVisible] = useState(false);
   console.log(navigation);
-  console.log('====================================');
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
         <SlideShow listImages={imgs} />
+        <ModalComponent
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
         {res.map((item, i) => (
           <SectionSlider
             key={i}
