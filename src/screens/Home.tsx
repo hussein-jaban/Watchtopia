@@ -23,36 +23,50 @@ const resData = (arr: any) => {
 };
 
 const Home = ({navigation}: HomeProps) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [catmodalVisible, setCatModalVisible] = useState(false);
+  const [homemodalVisible, seHometModalVisible] = useState(false);
+  const mainPages = ['Home', 'Tv Shows'];
 
   console.log(navigation);
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
         <View style={styles.catWrapper}>
-          <View
+          <TouchableOpacity
+            activeOpacity={0.7}
             style={styles.catSection}
-            // onPress={() => setModalVisible(!modalVisible)}
-          >
+            onPress={() => seHometModalVisible(!homemodalVisible)}>
             <Text style={styles.textStyle}>Home</Text>
             <Arrowdown width={20} height={20} fill="#dedede" />
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.catSection}
             activeOpacity={0.7}
-            onPress={() => setModalVisible(!modalVisible)}>
+            onPress={() => setCatModalVisible(!catmodalVisible)}>
             <Text style={styles.textStyle}>Categories</Text>
             <Arrowdown width={20} height={20} fill="#dedede" />
           </TouchableOpacity>
         </View>
         <ModalComponent
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}>
+          modalVisible={homemodalVisible}
+          setModalVisible={seHometModalVisible}>
+          {mainPages.map(item => (
+            <TouchableOpacity
+              activeOpacity={0.5}
+              key={item}
+              onPress={() => seHometModalVisible(!homemodalVisible)}>
+              <Text style={styles.modalText}>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </ModalComponent>
+        <ModalComponent
+          modalVisible={catmodalVisible}
+          setModalVisible={setCatModalVisible}>
           {genres.map(genre => (
             <TouchableOpacity
               activeOpacity={0.5}
               key={genre.id}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => setCatModalVisible(!catmodalVisible)}>
               <Text style={styles.modalText}>{genre.name}</Text>
             </TouchableOpacity>
           ))}

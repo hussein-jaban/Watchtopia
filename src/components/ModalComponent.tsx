@@ -33,6 +33,7 @@ const ModalComponent = ({
         <View style={styles.modalView}>
           <ScrollView
             style={styles.scroll}
+            contentContainerStyle={styles.moreScroll}
             showsVerticalScrollIndicator={false}>
             {children}
             <View style={styles.emp} />
@@ -64,12 +65,23 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 20,
     padding: 35,
+    justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'red',
+
     width: '100%',
     height: '100%',
   },
   scroll: {
+    // backgroundColor: 'green',
+    textAlign: 'center',
     width: '100%',
+    height: '100%',
+  },
+  moreScroll: {
+    // flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     borderRadius: 20,
