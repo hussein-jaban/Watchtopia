@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Button,
 } from 'react-native';
 import React, {useState} from 'react';
 import {HomeProps} from '../types/nav.types';
@@ -14,6 +15,7 @@ import SectionSlider from '../components/SectionSlider';
 import {genres, subGenres} from '../constants/genreList';
 import Arrowdown from '../../assests/icons/arrowdown.svg';
 import ModalComponent from '../components/ModalComponent';
+import BottomComponent from '../components/BottomComponent';
 
 const resData = (arr: any) => {
   return arr.map((item: any) => ({
@@ -23,11 +25,13 @@ const resData = (arr: any) => {
 };
 
 const Home = ({navigation}: HomeProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
   const mainPages = ['Home', 'Tv Shows'];
 
   console.log(navigation);
+  console.log(isOpen);
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
@@ -72,6 +76,8 @@ const Home = ({navigation}: HomeProps) => {
           ))}
         </ModalComponent>
         <SlideShow listImages={imgs} />
+        <Button title="open" onPress={() => setIsOpen(!isOpen)} />
+        <BottomComponent />
         {res.map((item, i) => (
           <SectionSlider
             key={i}

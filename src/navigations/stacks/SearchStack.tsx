@@ -4,15 +4,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SearchProps, SearchStackParamList} from '../../types/nav.types';
 // import MyTabs from '../topTabs/MyTabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import BottomComponent from '../../components/BottomComponent';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator<SearchStackParamList>();
 
 function All() {
   return (
-    <View>
+    <View style={{backgroundColor: 'grey', flex: 1}}>
       <Text>all Screen</Text>
       {/* <Button title="Go to Home" onPress={() => navigation.navigate('Home')} /> */}
+      <BottomComponent />
     </View>
   );
 }
