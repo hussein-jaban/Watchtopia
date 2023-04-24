@@ -1,20 +1,29 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Button, Text, View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SearchProps, SearchStackParamList} from '../../types/nav.types';
 // import MyTabs from '../topTabs/MyTabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import BottomComponent from '../../components/BottomComponent';
+// import BottomComponent from '../../components/BottomComponent';
+import BottomSheetWrapper from '../../components/BottomSheetWrapper';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator<SearchStackParamList>();
 
 function All() {
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
   return (
-    <View style={{backgroundColor: 'grey', flex: 1}}>
+    <View style={{backgroundColor: '#000', flex: 1}}>
       <Text>all Screen</Text>
+      <Button title="Open" onPress={() => setIsOpen(!isOpen)} />
       {/* <Button title="Go to Home" onPress={() => navigation.navigate('Home')} /> */}
-      <BottomComponent />
+      {/* <BottomComponent isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      <BottomSheetWrapper visible={isOpen} onClose={onClose}>
+        <View>
+          <Text>Bottom sheet</Text>
+        </View>
+      </BottomSheetWrapper>
     </View>
   );
 }

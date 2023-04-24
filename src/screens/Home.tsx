@@ -15,7 +15,7 @@ import SectionSlider from '../components/SectionSlider';
 import {genres, subGenres} from '../constants/genreList';
 import Arrowdown from '../../assests/icons/arrowdown.svg';
 import ModalComponent from '../components/ModalComponent';
-import BottomComponent from '../components/BottomComponent';
+import BottomSheetWrapper from '../components/BottomSheetWrapper';
 
 const resData = (arr: any) => {
   return arr.map((item: any) => ({
@@ -29,6 +29,8 @@ const Home = ({navigation}: HomeProps) => {
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
   const mainPages = ['Home', 'Tv Shows'];
+
+  const onClose = () => setIsOpen(false);
 
   console.log(navigation);
   console.log(isOpen);
@@ -66,18 +68,23 @@ const Home = ({navigation}: HomeProps) => {
         <ModalComponent
           modalVisible={catmodalVisible}
           setModalVisible={setCatModalVisible}>
-          {genres.map(genre => (
-            <TouchableOpacity
-              activeOpacity={0.5}
-              key={genre.id}
-              onPress={() => setCatModalVisible(!catmodalVisible)}>
-              <Text style={styles.modalText}>{genre.name}</Text>
-            </TouchableOpacity>
-          ))}
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.moreScroll}
+            showsVerticalScrollIndicator={false}>
+            {genres.map(genre => (
+              <TouchableOpacity
+                activeOpacity={0.5}
+                key={genre.id}
+                onPress={() => setCatModalVisible(!catmodalVisible)}>
+                <Text style={styles.modalText}>{genre.name}</Text>
+              </TouchableOpacity>
+            ))}
+            <View style={styles.emp} />
+          </ScrollView>
         </ModalComponent>
         <SlideShow listImages={imgs} />
         <Button title="open" onPress={() => setIsOpen(!isOpen)} />
-        <BottomComponent />
         {res.map((item, i) => (
           <SectionSlider
             key={i}
@@ -86,6 +93,11 @@ const Home = ({navigation}: HomeProps) => {
           />
         ))}
       </ScrollView>
+      <BottomSheetWrapper visible={isOpen} onClose={onClose}>
+        <View>
+          <Text>Bottom sheet</Text>
+        </View>
+      </BottomSheetWrapper>
     </SafeAreaView>
   );
 };
@@ -104,6 +116,16 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  emp: {marginBottom: 100},
+  scroll: {
+    textAlign: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  moreScroll: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalText: {
     marginTop: 25,
