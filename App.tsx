@@ -4,13 +4,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import BottomNavTabs from './src/navigations/bottomTabs/BottomNavTabs';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {StatusBar, StyleSheet} from 'react-native';
+import {Host} from 'react-native-portalize';
 
 function App() {
   return (
     <GestureHandlerRootView style={styles.main}>
       <StatusBar barStyle={'light-content'} />
       <NavigationContainer>
-        <BottomNavTabs />
+        <Host>
+          <BottomNavTabs />
+        </Host>
       </NavigationContainer>
     </GestureHandlerRootView>
   );
