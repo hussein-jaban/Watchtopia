@@ -26,14 +26,25 @@ const resData = (arr: any) => {
 
 const Home = ({navigation}: HomeProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState({});
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
   const mainPages = ['Home', 'Tv Shows'];
 
-  const onClose = () => setIsOpen(false);
+  const onClose = () => {
+    setSelected({});
+    setIsOpen(false);
+  };
+
+  const openModal = (id: number) => {
+    const chosen = res.flat().find(item => item.id === id);
+    setSelected(chosen || {});
+    setIsOpen(true);
+  };
 
   console.log(navigation);
   console.log(isOpen);
+  console.log(selected);
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
@@ -90,10 +101,15 @@ const Home = ({navigation}: HomeProps) => {
             key={i}
             text={subGenres[i].name}
             movies={resData(item)}
+            openModal={openModal}
           />
         ))}
       </ScrollView>
-      <BottomSheetWrapper visible={isOpen} onClose={onClose} />
+      <BottomSheetWrapper
+        visible={isOpen}
+        onClose={onClose}
+        selected={selected}
+      />
     </SafeAreaView>
   );
 };
