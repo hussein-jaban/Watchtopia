@@ -1,17 +1,10 @@
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
-  // BottomSheetProps,
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
-import React, {
-  // PropsWithChildren,
-  useCallback,
-  useEffect,
-  // useMemo,
-  useRef,
-} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {
   BackHandler,
   StyleSheet,
@@ -66,9 +59,6 @@ const BottomSheetWrapper = ({
   const {top} = useSafeAreaInsets();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  // console.log('====================================');
-  // console.log(selected);
-  // console.log('====================================');
   // handle back press events for Android
   useEffect(() => {
     const onBackPress = () => {
@@ -90,6 +80,7 @@ const BottomSheetWrapper = ({
   }, [onClose, visible]);
 
   const snapPoints = ['42%'];
+
   const shortify = (text: string) => `${text?.substring(0, 150)}...`;
 
   const {
@@ -133,7 +124,6 @@ const BottomSheetWrapper = ({
         enableContentPanningGesture
         enablePanDownToClose={true}
         animateOnMount
-        // handleComponent={() => <></>}
         onChange={index => (index === -1 ? onClose?.() : onOpen?.())}
         snapPoints={animatedSnapPoints}>
         <BottomSheetView
@@ -148,24 +138,20 @@ const BottomSheetWrapper = ({
                 }}
               />
               <View style={styles.right}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
+                <View style={styles.rowBtw}>
                   <Text style={styles.title}>{selected?.original_title}</Text>
                   <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.iconDiv}
                     onPress={() => onClose && onClose?.()}>
-                    <Close width={25} height={25} fill={'#fff'} />
+                    <Close width={30} height={30} fill={'#fff'} />
                   </TouchableOpacity>
                 </View>
-                <View style={{flexDirection: 'row', marginVertical: 10}}>
+                <View style={styles.row10}>
                   <Text style={styles.min}>
                     {selected.release_date?.substring(0, 4)}
                   </Text>
-                  <Text style={[styles.min, {marginHorizontal: 15}]}>
+                  <Text style={[styles.min, styles.marginH15]}>
                     {selected.adult ? '18+' : '13+'}
                   </Text>
                   <Text style={styles.min}>3 seasons</Text>
@@ -176,34 +162,17 @@ const BottomSheetWrapper = ({
             <View style={styles.icons}>
               {icons.map((item, i) => (
                 <View key={i} style={styles.icon}>
-                  {/* <FontAwesomeIcons name="share-alt" size={30} color="white" /> */}
-                  {/* <Trend width={30} height={30} fill={'#fff'} /> */}
                   {item.icon}
                   <Text style={styles.min2}>{item.name}</Text>
                 </View>
               ))}
             </View>
             <View style={styles.lineStyle} />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 12,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                {/* <Ionicons
-                name="information-circle-outline"
-                size={30}
-                color="white"
-              /> */}
+            <View style={styles.spaceBtw}>
+              <View style={styles.rowCenter}>
                 <Info width={28} height={28} fill={'#fff'} />
                 <Text style={styles.des2}>Details & More</Text>
               </View>
-              {/* <AntDesignIcon name="right" size={25} color="white" /> */}
               <ArrowRight width={27} height={27} fill={'#fff'} />
             </View>
           </View>
@@ -217,8 +186,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  row10: {flexDirection: 'row', marginVertical: 10},
+  marginH15: {marginHorizontal: 15},
   backbg: {
     backgroundColor: '#000000d2',
+  },
+  rowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowBtw: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  spaceBtw: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 12,
   },
   background: {
     backgroundColor: '#333232',
@@ -249,10 +233,7 @@ const styles = StyleSheet.create({
     flex: 8,
   },
   right: {flex: 3, color: 'white'},
-  iconDiv: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  iconDiv: {},
   imageSize: {
     width: 150,
     height: 150,
