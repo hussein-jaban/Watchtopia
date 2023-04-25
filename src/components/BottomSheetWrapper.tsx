@@ -66,7 +66,7 @@ const BottomSheetWrapper = ({
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // console.log('====================================');
-  console.log(selected);
+  // console.log(selected);
   // console.log('====================================');
   // handle back press events for Android
   useEffect(() => {

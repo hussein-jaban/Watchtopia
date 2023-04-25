@@ -13,9 +13,10 @@ type SctionMovie = {id: number; imgUrl: string};
 type Section = {
   text: string;
   movies: SctionMovie[];
+  openModal: (id: number) => void;
 };
 
-const SectionSlider = ({text, movies}: Section) => {
+const SectionSlider = ({text, movies, openModal}: Section) => {
   const randMovies = useMemo(() => {
     return randomize(movies);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +50,7 @@ const SectionSlider = ({text, movies}: Section) => {
         data={randMovies}
         keyExtractor={(item: SctionMovie) => String(item.id)}
         renderItem={({item}) => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => openModal(item.id)}>
             <Image
               style={styles.imageSize}
               // loadingIndicatorSource={<ActivityIndicator />}
