@@ -23,12 +23,13 @@ import {
 import {Portal} from 'react-native-portalize';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {res} from '../utils/mocks/movieRes';
-import Trend from '../../assests/icons/trend.svg';
 import Close from '../../assests/icons/close2.svg';
 import PlayFull from '../../assests/icons/playFull.svg';
 import Download from '../../assests/icons/download.svg';
 import Plus from '../../assests/icons/plus.svg';
 import Share from '../../assests/icons/shareFull.svg';
+import Info from '../../assests/icons/info-outline.svg';
+import ArrowRight from '../../assests/icons/arrow-right.svg';
 
 type Props = {
   onClose?: () => void;
@@ -199,11 +200,11 @@ const BottomSheetWrapper = ({
                 size={30}
                 color="white"
               /> */}
-                <Trend width={30} height={30} fill={'#fff'} />
+                <Info width={28} height={28} fill={'#fff'} />
                 <Text style={styles.des2}>Details & More</Text>
               </View>
               {/* <AntDesignIcon name="right" size={25} color="white" /> */}
-              <Trend width={30} height={30} fill={'#fff'} />
+              <ArrowRight width={27} height={27} fill={'#fff'} />
             </View>
           </View>
         </BottomSheetView>
