@@ -9,11 +9,11 @@ import {
 import React, {useMemo, useState} from 'react';
 import PlaceHolder from '../../assests/icons/sharpLoadingTrans.gif';
 
-type SctionMovie = {id: number; imgUrl: string};
+type SectionMovie = {id: number; imgUrl: string};
 
 type Section = {
   text: string;
-  movies: SctionMovie[];
+  movies: SectionMovie[];
   openModal: (id: number) => void;
 };
 
@@ -50,7 +50,7 @@ const SectionSlider = ({text, movies, openModal}: Section) => {
         horizontal
         style={styles.imgScroll}
         data={randMovies}
-        keyExtractor={(item: SctionMovie) => String(item.id)}
+        keyExtractor={(item: SectionMovie) => String(item.id)}
         renderItem={({item}) => (
           <TouchableOpacity onPress={() => openModal(item.id)}>
             <Image

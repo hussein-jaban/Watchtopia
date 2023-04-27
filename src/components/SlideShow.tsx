@@ -32,8 +32,6 @@ const SlideShow = ({listImages}: Props) => {
   const getGenreNameById = (id: number) =>
     genres.find(genre => genre.id === id)?.name;
 
-  console.log(loading);
-
   return (
     <Animated.ScrollView
       horizontal

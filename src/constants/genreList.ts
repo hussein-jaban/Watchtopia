@@ -106,8 +106,8 @@ export const subGenres = [
   //   id: 80,
   //   name: 'Crime',
   // },
-  // {
-  //   id: 10749,
-  //   name: 'Romance',
-  // },
+  {
+    id: 10749,
+    name: 'Romance',
+  },
 ];
