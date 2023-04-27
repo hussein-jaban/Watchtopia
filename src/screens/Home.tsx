@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Text,
   View,
-  Button,
 } from 'react-native';
 import React, {useState} from 'react';
 import {HomeProps} from '../types/nav.types';
@@ -43,8 +42,6 @@ const Home = ({navigation}: HomeProps) => {
   };
 
   console.log(navigation);
-  console.log(isOpen);
-  console.log(selected);
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
@@ -95,7 +92,6 @@ const Home = ({navigation}: HomeProps) => {
           </ScrollView>
         </ModalComponent>
         <SlideShow listImages={imgs} />
-        <Button title="open" onPress={() => setIsOpen(!isOpen)} />
         {res.map((item, i) => (
           <SectionSlider
             key={i}
