@@ -6,7 +6,8 @@ import {
   View,
   Text,
 } from 'react-native';
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
+import PlaceHolder from '../../assests/icons/sharpLoadingTrans.gif';
 
 type SctionMovie = {id: number; imgUrl: string};
 
@@ -17,6 +18,7 @@ type Section = {
 };
 
 const SectionSlider = ({text, movies, openModal}: Section) => {
+  const [loading, setLoading] = useState(true);
   const randMovies = useMemo(() => {
     return randomize(movies);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,10 +55,17 @@ const SectionSlider = ({text, movies, openModal}: Section) => {
           <TouchableOpacity onPress={() => openModal(item.id)}>
             <Image
               style={styles.imageSize}
-              // loadingIndicatorSource={<ActivityIndicator />}
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500/${item.imgUrl}`,
-              }}
+              // loadingIndicatorSource={PlaceHolder}
+              defaultSource={PlaceHolder}
+              // source={PlaceHolder}
+              onLoadEnd={() => setLoading(false)}
+              source={
+                loading
+                  ? PlaceHolder
+                  : {
+                      uri: `https://image.tmdb.org/t/p/w500/${item.imgUrl}`,
+                    }
+              }
             />
           </TouchableOpacity>
         )}
