@@ -41,7 +41,6 @@ const Home = ({navigation}: HomeProps) => {
     setIsOpen(true);
   };
 
-  console.log(navigation);
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
@@ -84,7 +83,10 @@ const Home = ({navigation}: HomeProps) => {
               <TouchableOpacity
                 activeOpacity={0.5}
                 key={genre.id}
-                onPress={() => setCatModalVisible(!catmodalVisible)}>
+                onPress={() => {
+                  setCatModalVisible(!catmodalVisible);
+                  navigation.navigate('MovieGenre', genre);
+                }}>
                 <Text style={styles.modalText}>{genre.name}</Text>
               </TouchableOpacity>
             ))}
