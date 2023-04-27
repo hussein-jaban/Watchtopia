@@ -1,5 +1,11 @@
-import {TouchableOpacity, Image, Text, View} from 'react-native';
-import React from 'react';
+import {
+  TouchableOpacity,
+  Image,
+  Text,
+  View,
+  // ActivityIndicator,
+} from 'react-native';
+import React, {useState} from 'react';
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
@@ -7,6 +13,8 @@ import Animated, {
 import {StyleSheet, Dimensions} from 'react-native';
 import {Imgs} from '../utils/mocks/movieRes';
 import {genres} from '../constants/genreList';
+// import PlaceHolder from '../../assests/icons/quaterLoading.gif';
+import PlaceHolder from '../../assests/icons/sharpLoadingTrans.gif';
 
 type Props = {
   listImages: Imgs[];
@@ -15,6 +23,7 @@ type Props = {
 const {width, height} = Dimensions.get('window');
 
 const SlideShow = ({listImages}: Props) => {
+  const [loading, setLoading] = useState(true);
   const translateX = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateX.value = event.contentOffset.x;
@@ -22,6 +31,8 @@ const SlideShow = ({listImages}: Props) => {
 
   const getGenreNameById = (id: number) =>
     genres.find(genre => genre.id === id)?.name;
+
+  console.log(loading);
 
   return (
     <Animated.ScrollView
@@ -34,9 +45,13 @@ const SlideShow = ({listImages}: Props) => {
         <View style={styles.wrapper} key={i}>
           <TouchableOpacity activeOpacity={1}>
             <Image
-              source={{uri: item.imgUrl}}
-              // loadingIndicatorSource={<ActivityIndicator />}
+              // source={PlaceHolder}
+              source={loading ? PlaceHolder : {uri: item.imgUrl}}
+              // loadingIndicatorSource={PlaceHolder}
               style={styles.imageStyles}
+              defaultSource={PlaceHolder}
+              // onLoadStart={() => setLoading(true)}
+              onLoadEnd={() => setLoading(false)}
             />
           </TouchableOpacity>
           <View style={styles.gnMain}>
