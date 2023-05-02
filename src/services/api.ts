@@ -39,10 +39,18 @@ const getMoviePageData = async () => {
   return res;
 };
 
+const searchPlaceholderFetch = async () => {
+  const popularMovies = await getMovieTypeData('popular');
+  const popularTv = await getTVTypeData('top_rated');
+  const res = await Promise.all([popularMovies, popularTv]);
+  return res;
+};
+
 export {
   getPopularTv,
   getMovieTypeData,
   getTVTypeData,
   getGenreData,
   getMoviePageData,
+  searchPlaceholderFetch,
 };
