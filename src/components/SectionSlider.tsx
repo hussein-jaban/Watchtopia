@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import React, {useMemo, useState} from 'react';
 import PlaceHolder from '../../assests/icons/sharpLoadingTrans.gif';
+import {randomize} from '../utils/randomize';
+import {Card} from '../types/common.types';
 
-type SectionMovie = {id: number; imgUrl: string};
+export type SectionMovie = {id: number; imgUrl: string};
 
 type Section = {
   text: string;
-  movies: SectionMovie[];
+  movies: Card[];
   openModal: (id: number) => void;
 };
 
@@ -24,25 +26,6 @@ const SectionSlider = ({text, movies, openModal}: Section) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function randomize(values: any) {
-    let index = values.length,
-      randomIndex;
-
-    // While there remain elements to shuffle.
-    while (index !== 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * index);
-      index--;
-
-      // And swap it with the current element.
-      [values[index], values[randomIndex]] = [
-        values[randomIndex],
-        values[index],
-      ];
-    }
-    return values;
-  }
-
   return (
     <View style={styles.main}>
       <Text style={styles.textColor}>{text}</Text>
@@ -50,7 +33,7 @@ const SectionSlider = ({text, movies, openModal}: Section) => {
         horizontal
         style={styles.imgScroll}
         data={randMovies}
-        keyExtractor={(item: SectionMovie) => String(item.id)}
+        keyExtractor={(item: Card) => String(item.id)}
         renderItem={({item}) => (
           <TouchableOpacity onPress={() => openModal(item.id)}>
             <Image

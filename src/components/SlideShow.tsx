@@ -11,10 +11,11 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {StyleSheet, Dimensions} from 'react-native';
-import {Imgs} from '../utils/mocks/movieRes';
+// import {Imgs} from '../utils/mocks/movieRes';
 import {genres} from '../constants/genreList';
 // import PlaceHolder from '../../assests/icons/quaterLoading.gif';
 import PlaceHolder from '../../assests/icons/sharpLoadingTrans.gif';
+import {Imgs} from '../screens/Home';
 
 type Props = {
   listImages: Imgs[];
@@ -53,12 +54,12 @@ const SlideShow = ({listImages}: Props) => {
             />
           </TouchableOpacity>
           <View style={styles.gnMain}>
-            {item.genre_ids.map(
+            {item?.genre_ids?.map(
               (genre, z) =>
                 z < 3 && (
                   <View key={z} style={styles.gn}>
                     <Text style={styles.gnTxt}>{getGenreNameById(genre)}</Text>
-                    {item.genre_ids.length - 1 !== z && z !== 2 && (
+                    {(item?.genre_ids?.length || 0) - 1 !== z && z !== 2 && (
                       <View style={styles.gnView} />
                     )}
                   </View>

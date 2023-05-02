@@ -17,11 +17,13 @@ import ModalComponent from '../components/ModalComponent';
 import BottomSheetWrapper from '../components/BottomSheetWrapper';
 import {useQuery} from '@tanstack/react-query';
 import {getMoviePageData} from '../services/api';
+import {randomize} from '../utils/randomize';
+import {Card} from '../types/common.types';
 
-type Imgs = {
+export type Imgs = {
   id: number;
   imgUrl: string;
-  genre_ids: number[];
+  genre_ids?: number[];
 };
 
 const resData = (arr: any) => {
@@ -38,7 +40,7 @@ const Home = ({navigation}: HomeProps) => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [imgs2, setImgs2] = useState<Imgs[]>([]);
+  const [imgs, setImgs] = useState<Card[]>([]);
   const [selected, setSelected] = useState({});
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
@@ -60,7 +62,7 @@ const Home = ({navigation}: HomeProps) => {
 
   const refactorSlideContent = useCallback(() => {
     const results = data?.map(item => item?.results);
-    const slideContent: Imgs[] =
+    const slideContent: Card[] =
       results?.flat().map(item => {
         return {
           id: item.id,
@@ -68,29 +70,10 @@ const Home = ({navigation}: HomeProps) => {
           genre_ids: item.genre_ids,
         };
       }) || [];
-    const randomize = (values: Imgs[]) => {
-      let index = values.length,
-        randomIndex;
-
-      // While there remain elements to shuffle.
-      while (index !== 0) {
-        // Pick a remaining element.
-        randomIndex = Math.floor(Math.random() * index);
-        index--;
-
-        // And swap it with the current element.
-        [values[index], values[randomIndex]] = [
-          values[randomIndex],
-          values[index],
-        ];
-      }
-
-      return values;
-    };
     const uniqueData = [
       ...new Set(slideContent.map(item => JSON.stringify(item))),
     ].map(item => JSON.parse(item));
-    setImgs2(randomize(uniqueData));
+    setImgs(randomize(uniqueData));
   }, [data]);
 
   useEffect(() => {
@@ -151,7 +134,7 @@ const Home = ({navigation}: HomeProps) => {
             <View style={styles.emp} />
           </ScrollView>
         </ModalComponent>
-        <SlideShow listImages={imgs2} />
+        <SlideShow listImages={imgs} />
         {data?.map((item, i) => (
           <SectionSlider
             key={i}
