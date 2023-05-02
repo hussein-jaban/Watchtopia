@@ -1,17 +1,18 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import PlayIcon from '../../assests/icons/play-outline.svg';
+import {Card} from '../types/common.types';
 
-const FullCard = () => {
+const FullCard = ({imgUrl, title}: Card) => {
   return (
     <View style={styles.wrapper}>
       <Image
         style={styles.imageSize}
         source={{
-          uri: 'https://image.tmdb.org/t/p/w500/OIGX2lm5tmlCKvZUghtwHzoxxO.jpg',
+          uri: `https://image.tmdb.org/t/p/w500/${imgUrl}`,
         }}
       />
-      <Text style={styles.txtWhite}>Shazam</Text>
+      <Text style={styles.txtWhite}>{title}</Text>
       <PlayIcon style={styles.icon} width={30} height={30} fill="#fff" />
     </View>
   );
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    gap: 5,
+    gap: 8,
     marginBottom: 12,
   },
   imageSize: {
@@ -36,12 +37,11 @@ const styles = StyleSheet.create({
   icon: {flex: 2, marginRight: 10, marginBottom: -8},
   txtWhite: {
     color: '#e3e3e3',
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: '700',
     marginTop: 20,
     marginBottom: 10,
     flexWrap: 'wrap',
     flex: 1,
-    // backgroundColor: 'red',
   },
 });
