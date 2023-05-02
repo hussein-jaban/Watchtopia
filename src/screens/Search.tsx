@@ -1,13 +1,46 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TextInput} from 'react-native-gesture-handler';
 import SearchIcon from '../../assests/icons/search.svg';
 import CloseIcon from '../../assests/icons/close-clean.svg';
 import FullCard from '../components/FullCard';
+import {useQuery} from '@tanstack/react-query';
+import {searchPlaceholderFetch} from '../services/api';
+import {randomize} from '../utils/randomize';
+import {Card} from '../types/common.types';
 
 const Search = () => {
   const [value, setValue] = useState('');
+  const [placeHolderData, setPlaceHolderData] = useState<Card[]>([]);
+  const {data} = useQuery({
+    queryKey: ['search'],
+    queryFn: searchPlaceholderFetch,
+  });
+
+  const unifyData = useCallback(() => {
+    const result = data
+      ?.map(item => item?.results)
+      .flat()
+      .map(res => {
+        return {
+          id: res.id,
+          imgUrl: res.backdrop_path,
+          title: res.title || res.original_title || res.name,
+        };
+      });
+    setPlaceHolderData(randomize(result || []));
+  }, [data]);
+
+  console.log('====================================');
+  console.log(placeHolderData);
+  console.log('====================================');
+
+  useEffect(() => {
+    if (data) {
+      unifyData();
+    }
+  }, [data, unifyData]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -32,12 +65,17 @@ const Search = () => {
           </Pressable>
         )}
       </View>
-      <Text style={styles.txtWhite}>Top Searches</Text>
-      <FullCard />
-      <FullCard />
-      <FullCard />
-      <FullCard />
-      <FullCard />
+      <ScrollView>
+        <Text style={styles.txtWhite}>Top Searches</Text>
+        {placeHolderData.map(item => (
+          <FullCard
+            key={item.id}
+            title={item.title}
+            imgUrl={item.imgUrl}
+            id={item.id}
+          />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
