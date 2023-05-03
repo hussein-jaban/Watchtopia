@@ -2059,20 +2059,15 @@ export const res = [
   ],
 ];
 
-const slideContent: Imgs[] = [];
+let slideContent: Imgs[] = [];
 
-for (let i = 0; i < res.length; i++) {
-  const element = res[i];
-  for (let j = 0; j < element.length; j++) {
-    const currentImg = element[j];
-    const img = {
-      id: currentImg.id,
-      imgUrl: `https://image.tmdb.org/t/p/w500${currentImg.poster_path}`,
-      genre_ids: currentImg.genre_ids,
-    };
-    slideContent.push(img);
-  }
-}
+slideContent = res.flat().map(item => {
+  return {
+    id: item.id,
+    imgUrl: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+    genre_ids: item.genre_ids,
+  };
+});
 
 function randomize(values: Imgs[]) {
   let index = values.length,

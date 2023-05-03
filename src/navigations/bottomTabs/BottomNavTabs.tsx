@@ -1,6 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Trend from '../../../assests/icons/trend.svg';
+// import Trend from '../../../assests/icons/trend.svg';
+import Search from '../../../assests/icons/search.svg';
 import Home from '../../../assests/icons/home-full.svg';
 import HomeStack from '../stacks/HomeStack';
 import SearchStack from '../stacks/SearchStack';
@@ -28,9 +29,9 @@ const BottomNavTabs = () => {
         name="SearchTab"
         component={SearchStack}
         options={{
-          title: 'Trending',
+          title: 'Search',
           tabBarIcon: ({color}) => (
-            <Trend width={30} height={30} fill={color} />
+            <Search width={30} height={30} fill={color} />
           ),
         }}
       />
