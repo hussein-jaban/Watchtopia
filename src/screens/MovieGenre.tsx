@@ -3,20 +3,25 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {MovieGenreProps} from '../types/nav.types';
 import BlockSection from '../components/BlockSection';
+import {getGenreData} from '../services/api';
+import {useQuery} from '@tanstack/react-query';
 
 const MovieGenre = ({route}: MovieGenreProps) => {
-  // const route = useRoute();
-  // const params = route.params;
+  const {id, name} = route.params;
+  const {data} = useQuery({
+    queryKey: [`movie_${name}_${id}`],
+    queryFn: () => getGenreData('movie', id),
+  });
 
   console.log('====================================');
-  // console.log(params);
+  console.log(data);
   console.log('====================================');
   return (
     <SafeAreaView style={styles.main}>
       <Text style={styles.whiteTxt}>{route.params.name}</Text>
       {/* <Text style={styles.whiteTxt}>{navigation.}</Text> */}
       <ScrollView style={styles.scrollContent}>
-        <BlockSection />
+        <BlockSection datas={data?.results} />
       </ScrollView>
     </SafeAreaView>
   );

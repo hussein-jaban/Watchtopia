@@ -1,13 +1,13 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {res} from '../utils/mocks/movieRes';
+// import {res} from '../utils/mocks/movieRes';
 
-const BlockSection = () => {
-  const datas = res[0];
+const BlockSection = ({datas}: any) => {
+  // const datas = res[0];
 
   return (
     <View style={styles.main}>
-      {datas.map((data, i) => (
+      {datas?.map((data: any, i: number) => (
         <TouchableOpacity key={i}>
           <Image
             style={styles.imageSize}
