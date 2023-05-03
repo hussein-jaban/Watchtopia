@@ -5,13 +5,22 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SearchProps, SearchStackParamList} from '../../types/nav.types';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import BottomSheetWrapper from '../../components/BottomSheetWrapper';
+import {useQuery} from '@tanstack/react-query';
+import {getPopularTv} from '../../services/api';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator<SearchStackParamList>();
 
 function All() {
+  const {data} = useQuery({
+    queryKey: ['repoData'],
+    queryFn: getPopularTv,
+  });
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
+  console.log('====================================');
+  console.log(data);
+  console.log('====================================');
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{backgroundColor: '#000', flex: 1}}>
