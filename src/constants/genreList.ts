@@ -98,14 +98,6 @@ export const subGenres = [
     id: 35,
     name: 'Comedy',
   },
-  // {
-  //   id: 878,
-  //   name: 'Fiction',
-  // },
-  // {
-  //   id: 80,
-  //   name: 'Crime',
-  // },
   {
     id: 10749,
     name: 'Romance',
