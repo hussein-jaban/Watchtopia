@@ -5,16 +5,24 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {HomeProps} from '../types/nav.types';
 import SlideShow from '../components/SlideShow';
-import {imgs, res} from '../utils/mocks/movieRes';
+// import {imgs, res} from '../utils/mocks/movieRes';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SectionSlider from '../components/SectionSlider';
 import {genres, subGenres} from '../constants/genreList';
 import Arrowdown from '../../assests/icons/arrowdown.svg';
 import ModalComponent from '../components/ModalComponent';
 import BottomSheetWrapper from '../components/BottomSheetWrapper';
+import {useQuery} from '@tanstack/react-query';
+import {getMoviePageData} from '../services/api';
+
+type Imgs = {
+  id: number;
+  imgUrl: string;
+  genre_ids: number[];
+};
 
 const resData = (arr: any) => {
   return arr.map((item: any) => ({
@@ -24,7 +32,13 @@ const resData = (arr: any) => {
 };
 
 const Home = ({navigation}: HomeProps) => {
+  const {data} = useQuery({
+    queryKey: ['movie_home'],
+    queryFn: getMoviePageData,
+  });
+
   const [isOpen, setIsOpen] = useState(false);
+  const [imgs2, setImgs2] = useState<Imgs[]>([]);
   const [selected, setSelected] = useState({});
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
@@ -36,10 +50,54 @@ const Home = ({navigation}: HomeProps) => {
   };
 
   const openModal = (id: number) => {
-    const chosen = res.flat().find(item => item.id === id);
+    const chosen = data
+      ?.map(item => item?.results)
+      .flat()
+      .find(item => item.id === id);
     setSelected(chosen || {});
     setIsOpen(true);
   };
+
+  const refactorSlideContent = useCallback(() => {
+    const results = data?.map(item => item?.results);
+    const slideContent: Imgs[] =
+      results?.flat().map(item => {
+        return {
+          id: item.id,
+          imgUrl: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+          genre_ids: item.genre_ids,
+        };
+      }) || [];
+    const randomize = (values: Imgs[]) => {
+      let index = values.length,
+        randomIndex;
+
+      // While there remain elements to shuffle.
+      while (index !== 0) {
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * index);
+        index--;
+
+        // And swap it with the current element.
+        [values[index], values[randomIndex]] = [
+          values[randomIndex],
+          values[index],
+        ];
+      }
+
+      return values;
+    };
+    const uniqueData = [
+      ...new Set(slideContent.map(item => JSON.stringify(item))),
+    ].map(item => JSON.parse(item));
+    setImgs2(randomize(uniqueData));
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      refactorSlideContent();
+    }
+  }, [data, refactorSlideContent]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -93,12 +151,12 @@ const Home = ({navigation}: HomeProps) => {
             <View style={styles.emp} />
           </ScrollView>
         </ModalComponent>
-        <SlideShow listImages={imgs} />
-        {res.map((item, i) => (
+        <SlideShow listImages={imgs2} />
+        {data?.map((item, i) => (
           <SectionSlider
             key={i}
             text={subGenres[i].name}
-            movies={resData(item)}
+            movies={resData(item?.results)}
             openModal={openModal}
           />
         ))}
