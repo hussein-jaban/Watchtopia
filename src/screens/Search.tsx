@@ -1,4 +1,11 @@
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TextInput} from 'react-native-gesture-handler';
@@ -6,20 +13,27 @@ import SearchIcon from '../../assests/icons/search.svg';
 import CloseIcon from '../../assests/icons/close-clean.svg';
 import FullCard from '../components/FullCard';
 import {useQuery} from '@tanstack/react-query';
-import {searchPlaceholderFetch} from '../services/api';
+import {searchData, searchPlaceholderFetch} from '../services/api';
 import {randomize} from '../utils/randomize';
 import {Card} from '../types/common.types';
+import useDebounce from '../hooks/useDebounce';
+import BlockSection from '../components/BlockSection';
 
 const Search = () => {
   const [value, setValue] = useState('');
+  const debouncedValue = useDebounce<string>(value, 500);
   const [placeHolderData, setPlaceHolderData] = useState<Card[]>([]);
-  const {data} = useQuery({
-    queryKey: ['search'],
+  const {data: searchPlaceHolderData} = useQuery({
+    queryKey: ['searchPlaceHolder'],
     queryFn: searchPlaceholderFetch,
+  });
+  const {data: searchedData, isLoading: searchLoading} = useQuery({
+    queryKey: ['search', debouncedValue],
+    queryFn: () => searchData('movie', value),
   });
 
   const unifyData = useCallback(() => {
-    const result = data
+    const result = searchPlaceHolderData
       ?.map(item => item?.results)
       .flat()
       .map(res => {
@@ -30,17 +44,26 @@ const Search = () => {
         };
       });
     setPlaceHolderData(randomize(result || []));
-  }, [data]);
+  }, [searchPlaceHolderData]);
 
   console.log('====================================');
-  console.log(placeHolderData);
+  console.log('value', value);
   console.log('====================================');
+  console.log('debouncedValue', debouncedValue);
+  console.log('====================================');
+  console.log('searchLoading', searchLoading);
+  console.log('searchedData', searchedData);
 
   useEffect(() => {
-    if (data) {
+    if (searchPlaceHolderData) {
       unifyData();
     }
-  }, [data, unifyData]);
+  }, [searchPlaceHolderData, unifyData]);
+
+  // useEffect(() => {
+  //   // Do fetch here...
+  //   // Triggers when "debouncedValue" changes
+  // }, [debouncedValue]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -59,14 +82,38 @@ const Search = () => {
           height={25}
           fill="#dbdbdb"
         />
-        {value && (
+        {searchLoading ? (
+          <ActivityIndicator style={styles.closeIcon} color="#00ff00" />
+        ) : value ? (
           <Pressable style={styles.closeIcon} onPress={() => setValue('')}>
             <CloseIcon width={25} height={25} fill="#dbdbdb" />
           </Pressable>
+        ) : (
+          <View />
         )}
+        {/* {value && (
+          <Pressable style={styles.closeIcon} onPress={() => setValue('')}>
+            <CloseIcon width={25} height={25} fill="#dbdbdb" />
+          </Pressable>
+        )} */}
       </View>
       <ScrollView>
-        <Text style={styles.txtWhite}>Top Searches</Text>
+        {!value ? (
+          <>
+            <Text style={styles.txtWhite}>Top Searches</Text>
+            {placeHolderData.map(item => (
+              <FullCard
+                key={item.id}
+                title={item.title}
+                imgUrl={item.imgUrl}
+                id={item.id}
+              />
+            ))}
+          </>
+        ) : (
+          <BlockSection datas={searchedData?.results} />
+        )}
+        {/* <Text style={styles.txtWhite}>Top Searches</Text>
         {placeHolderData.map(item => (
           <FullCard
             key={item.id}
@@ -74,7 +121,7 @@ const Search = () => {
             imgUrl={item.imgUrl}
             id={item.id}
           />
-        ))}
+        ))} */}
       </ScrollView>
     </SafeAreaView>
   );
