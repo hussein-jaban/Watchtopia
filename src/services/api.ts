@@ -24,6 +24,14 @@ const getTVTypeData = async (type: string) => {
   return data;
 };
 
+const searchData = async (type: string, query: string) => {
+  const res = await fetch(
+    `${url}/search/${type}?query=${query}&api_key=${apiKey}`,
+  );
+  const data = await res.json();
+  return data;
+};
+
 const getPopularTv = async () => {
   const res = await fetch(`${url}/tv/popular?api_key=${apiKey}`);
   const data = await res.json();
@@ -53,4 +61,5 @@ export {
   getGenreData,
   getMoviePageData,
   searchPlaceholderFetch,
+  searchData,
 };
