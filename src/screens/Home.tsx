@@ -8,7 +8,6 @@ import {
 import React, {useCallback, useEffect, useState} from 'react';
 import {HomeProps} from '../types/nav.types';
 import SlideShow from '../components/SlideShow';
-// import {imgs, res} from '../utils/mocks/movieRes';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SectionSlider from '../components/SectionSlider';
 import {genres, subGenres} from '../constants/genreList';
@@ -44,8 +43,6 @@ const Home = ({navigation}: HomeProps) => {
   const [selected, setSelected] = useState({});
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
-  const mainPages = ['Home', 'Tv Shows'];
-
   const onClose = () => {
     setSelected({});
     setIsOpen(false);
@@ -109,14 +106,22 @@ const Home = ({navigation}: HomeProps) => {
         <ModalComponent
           modalVisible={homemodalVisible}
           setModalVisible={seHometModalVisible}>
-          {mainPages.map(item => (
-            <TouchableOpacity
-              activeOpacity={0.5}
-              key={item}
-              onPress={() => seHometModalVisible(!homemodalVisible)}>
-              <Text style={styles.modalText}>{item}</Text>
-            </TouchableOpacity>
-          ))}
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {
+              seHometModalVisible(!homemodalVisible);
+              navigation.navigate('Home');
+            }}>
+            <Text style={styles.modalText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {
+              seHometModalVisible(!homemodalVisible);
+              navigation.navigate('Tv');
+            }}>
+            <Text style={styles.modalText}>Tv shows</Text>
+          </TouchableOpacity>
         </ModalComponent>
         <ModalComponent
           modalVisible={catmodalVisible}
@@ -131,7 +136,7 @@ const Home = ({navigation}: HomeProps) => {
                 key={genre.id}
                 onPress={() => {
                   setCatModalVisible(!catmodalVisible);
-                  navigation.navigate('MovieGenre', genre);
+                  navigation.navigate('MovieGenre', {...genre, type: 'movie'});
                 }}>
                 <Text style={styles.modalText}>{genre.name}</Text>
               </TouchableOpacity>

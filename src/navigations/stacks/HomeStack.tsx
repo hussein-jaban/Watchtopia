@@ -4,6 +4,7 @@ import Home from '../../screens/Home';
 import {HomeStackParamList} from '../../types/nav.types';
 import Details from '../../screens/Details';
 import MovieGenre from '../../screens/MovieGenre';
+import Tv from '../../screens/Tv';
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
@@ -11,6 +12,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Tv" component={Tv} />
       <Stack.Screen name="Details" component={Details} />
       <Stack.Screen name="MovieGenre" component={MovieGenre} />
     </Stack.Navigator>
