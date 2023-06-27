@@ -4,6 +4,8 @@ import React from 'react';
 type BlockType = {
   id: string | null;
   poster_path: string | null;
+  backdrop_path: string | null;
+  media_type?: string | null;
 };
 
 type Props = {
@@ -14,23 +16,33 @@ const BlockSection = ({datas}: Props) => {
   return (
     <View style={styles.main}>
       <View style={styles.wrapper}>
-        {datas?.map((data: BlockType, i: number) => (
-          <TouchableOpacity key={i}>
-            {data.poster_path ? (
-              <Image
-                style={styles.imageSize}
-                source={{
-                  uri: `https://image.tmdb.org/t/p/w500/${data.poster_path}`,
-                }}
-              />
-            ) : (
-              <Image
-                style={styles.noImageSize}
-                source={require('../../assests/images/noPoster.png')}
-              />
-            )}
-          </TouchableOpacity>
-        ))}
+        {datas?.map((data: BlockType, i: number) => {
+          console.log(data?.media_type);
+          return (
+            <TouchableOpacity key={i}>
+              {data.poster_path ? (
+                <Image
+                  style={styles.imageSize}
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/w500/${data.poster_path}`,
+                  }}
+                />
+              ) : data.backdrop_path ? (
+                <Image
+                  style={styles.noImageSize}
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/w500/${data.backdrop_path}`,
+                  }}
+                />
+              ) : (
+                <Image
+                  style={styles.noImageSize}
+                  source={require('../../assests/images/noPoster.png')}
+                />
+              )}
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );

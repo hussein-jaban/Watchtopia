@@ -20,8 +20,8 @@ import useDebounce from '../hooks/useDebounce';
 import BlockSection from '../components/BlockSection';
 
 const Search = () => {
-  const [value, setValue] = useState('');
-  const debouncedValue = useDebounce<string>(value, 500);
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedValue = useDebounce<string>(searchTerm, 500);
   const [placeHolderData, setPlaceHolderData] = useState<Card[]>([]);
   const {data: searchPlaceHolderData} = useQuery({
     queryKey: ['searchPlaceHolder'],
@@ -29,7 +29,7 @@ const Search = () => {
   });
   const {data: searchedData, isLoading: searchLoading} = useQuery({
     queryKey: ['search', debouncedValue],
-    queryFn: () => searchData('movie', value),
+    queryFn: () => searchData('multi', searchTerm),
   });
 
   const unifyData = useCallback(() => {
@@ -46,32 +46,19 @@ const Search = () => {
     setPlaceHolderData(randomize(result || []));
   }, [searchPlaceHolderData]);
 
-  console.log('====================================');
-  console.log('value', value);
-  console.log('====================================');
-  console.log('debouncedValue', debouncedValue);
-  console.log('====================================');
-  console.log('searchLoading', searchLoading);
-  console.log('searchedData', searchedData);
-
   useEffect(() => {
     if (searchPlaceHolderData) {
       unifyData();
     }
   }, [searchPlaceHolderData, unifyData]);
 
-  // useEffect(() => {
-  //   // Do fetch here...
-  //   // Triggers when "debouncedValue" changes
-  // }, [debouncedValue]);
-
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.srchCont}>
         <TextInput
           style={styles.input}
-          onChangeText={setValue}
-          value={value}
+          onChangeText={setSearchTerm}
+          value={searchTerm}
           autoFocus={false}
           placeholder="Search for movies or tv shows..."
           placeholderTextColor="#b5b5b5"
@@ -84,21 +71,16 @@ const Search = () => {
         />
         {searchLoading ? (
           <ActivityIndicator style={styles.closeIcon} color="#00ff00" />
-        ) : value ? (
-          <Pressable style={styles.closeIcon} onPress={() => setValue('')}>
+        ) : searchTerm ? (
+          <Pressable style={styles.closeIcon} onPress={() => setSearchTerm('')}>
             <CloseIcon width={25} height={25} fill="#dbdbdb" />
           </Pressable>
         ) : (
           <View />
         )}
-        {/* {value && (
-          <Pressable style={styles.closeIcon} onPress={() => setValue('')}>
-            <CloseIcon width={25} height={25} fill="#dbdbdb" />
-          </Pressable>
-        )} */}
       </View>
       <ScrollView>
-        {!value ? (
+        {!searchTerm ? (
           <>
             <Text style={styles.txtWhite}>Top Searches</Text>
             {placeHolderData.map(item => (
@@ -147,10 +129,12 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     color: '#dbdbdb',
     backgroundColor: '#303030',
+    width: '100%',
   },
   srchCont: {
     position: 'relative',
     marginTop: 20,
+    flexDirection: 'row',
   },
   srchIcon: {
     position: 'absolute',
