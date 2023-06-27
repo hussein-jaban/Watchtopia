@@ -113,7 +113,7 @@ const Tv = ({navigation}: TvProps) => {
               seHometModalVisible(!homemodalVisible);
               navigation.navigate('Home');
             }}>
-            <Text style={styles.modalText}>Home</Text>
+            <Text style={styles.modalText}>Movies</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.5}

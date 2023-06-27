@@ -92,7 +92,7 @@ const Home = ({navigation}: HomeProps) => {
             activeOpacity={0.7}
             style={styles.catSection}
             onPress={() => seHometModalVisible(!homemodalVisible)}>
-            <Text style={styles.textStyle}>Home</Text>
+            <Text style={styles.textStyle}>Movies</Text>
             <Arrowdown width={20} height={20} fill="#dedede" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -112,7 +112,7 @@ const Home = ({navigation}: HomeProps) => {
               seHometModalVisible(!homemodalVisible);
               navigation.navigate('Home');
             }}>
-            <Text style={styles.modalText}>Home</Text>
+            <Text style={styles.modalText}>Movies</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.5}
