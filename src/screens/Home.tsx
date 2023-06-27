@@ -76,6 +76,11 @@ const Home = ({navigation}: HomeProps) => {
     setImgs(randomize(uniqueData));
   }, [data]);
 
+  const goToDetails = () => {
+    onClose();
+    navigation.navigate('Details');
+  };
+
   useEffect(() => {
     if (data) {
       refactorSlideContent();
@@ -148,6 +153,7 @@ const Home = ({navigation}: HomeProps) => {
         visible={isOpen}
         onClose={onClose}
         selected={selected}
+        goToDetails={goToDetails}
       />
     </SafeAreaView>
   );

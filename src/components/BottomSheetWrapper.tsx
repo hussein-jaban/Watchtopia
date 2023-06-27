@@ -29,6 +29,7 @@ type Props = {
   onOpen?: () => void;
   visible: boolean;
   selected?: any;
+  goToDetails?: () => void;
 };
 
 const icons = [
@@ -54,6 +55,7 @@ const BottomSheetWrapper = ({
   onOpen,
   onClose,
   visible,
+  goToDetails,
   selected = res[0][0],
 }: Props) => {
   const {top} = useSafeAreaInsets();
@@ -139,7 +141,9 @@ const BottomSheetWrapper = ({
               />
               <View style={styles.right}>
                 <View style={styles.rowBtw}>
-                  <Text style={styles.title}>{selected?.original_title}</Text>
+                  <Text style={styles.title} onPress={goToDetails}>
+                    {selected?.original_title}
+                  </Text>
                   <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.iconDiv}
