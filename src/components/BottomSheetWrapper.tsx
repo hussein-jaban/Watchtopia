@@ -142,7 +142,7 @@ const BottomSheetWrapper = ({
               <View style={styles.right}>
                 <View style={styles.rowBtw}>
                   <Text style={styles.title} onPress={goToDetails}>
-                    {selected?.original_title}
+                    {selected?.original_title || selected?.name}
                   </Text>
                   <TouchableOpacity
                     activeOpacity={0.5}

@@ -103,3 +103,26 @@ export const subGenres = [
     name: 'Romance',
   },
 ];
+
+export const tvSubGenres = [
+  {
+    id: 18,
+    name: 'Drama',
+  },
+  {
+    id: 80,
+    name: 'Crime',
+  },
+  {
+    id: 16,
+    name: 'Animation',
+  },
+  {
+    id: 35,
+    name: 'Comedy',
+  },
+  {
+    id: 10749,
+    name: 'Romance',
+  },
+];

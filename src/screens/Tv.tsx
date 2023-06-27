@@ -6,16 +6,16 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {HomeProps} from '../types/nav.types';
+import {TvProps} from '../types/nav.types';
 import SlideShow from '../components/SlideShow';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SectionSlider from '../components/SectionSlider';
-import {genres, subGenres} from '../constants/genreList';
+import {genres, tvSubGenres} from '../constants/genreList';
 import Arrowdown from '../../assests/icons/arrowdown.svg';
 import ModalComponent from '../components/ModalComponent';
 import BottomSheetWrapper from '../components/BottomSheetWrapper';
 import {useQuery} from '@tanstack/react-query';
-import {getMoviePageData} from '../services/api';
+import {getTvPageData} from '../services/api';
 import {randomize} from '../utils/randomize';
 import {Card} from '../types/common.types';
 
@@ -32,10 +32,10 @@ const resData = (arr: any) => {
   }));
 };
 
-const Home = ({navigation}: HomeProps) => {
+const Tv = ({navigation}: TvProps) => {
   const {data} = useQuery({
-    queryKey: ['movie_home'],
-    queryFn: getMoviePageData,
+    queryKey: ['tv_home'],
+    queryFn: getTvPageData,
   });
 
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +43,7 @@ const Home = ({navigation}: HomeProps) => {
   const [selected, setSelected] = useState({});
   const [catmodalVisible, setCatModalVisible] = useState(false);
   const [homemodalVisible, seHometModalVisible] = useState(false);
+
   const onClose = () => {
     setSelected({});
     setIsOpen(false);
@@ -92,7 +93,7 @@ const Home = ({navigation}: HomeProps) => {
             activeOpacity={0.7}
             style={styles.catSection}
             onPress={() => seHometModalVisible(!homemodalVisible)}>
-            <Text style={styles.textStyle}>Movies</Text>
+            <Text style={styles.textStyle}>Tv Shows</Text>
             <Arrowdown width={20} height={20} fill="#dedede" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -136,7 +137,7 @@ const Home = ({navigation}: HomeProps) => {
                 key={genre.id}
                 onPress={() => {
                   setCatModalVisible(!catmodalVisible);
-                  navigation.navigate('MovieGenre', {...genre, type: 'movie'});
+                  navigation.navigate('MovieGenre', {...genre, type: 'tv'});
                 }}>
                 <Text style={styles.modalText}>{genre.name}</Text>
               </TouchableOpacity>
@@ -148,7 +149,7 @@ const Home = ({navigation}: HomeProps) => {
         {data?.map((item, i) => (
           <SectionSlider
             key={i}
-            text={subGenres[i].name}
+            text={tvSubGenres[i].name}
             movies={resData(item?.results)}
             openModal={openModal}
           />
@@ -164,7 +165,7 @@ const Home = ({navigation}: HomeProps) => {
   );
 };
 
-export default Home;
+export default Tv;
 
 const styles = StyleSheet.create({
   main: {

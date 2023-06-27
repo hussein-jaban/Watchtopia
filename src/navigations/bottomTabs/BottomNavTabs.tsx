@@ -22,6 +22,7 @@ const BottomNavTabs = () => {
         component={HomeStack}
         options={{
           title: 'Home',
+          // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: ({color}) => (
             <HomeIcon width={30} height={30} fill={color} />
           ),
@@ -32,6 +33,7 @@ const BottomNavTabs = () => {
         component={SearchStack}
         options={{
           title: 'Search',
+          // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: ({color}) => (
             <SearchIcon width={30} height={30} fill={color} />
           ),
