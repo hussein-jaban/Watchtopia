@@ -1,5 +1,5 @@
 import {API_KEY} from '@env';
-import {subGenres} from '../constants/genreList';
+import {subGenres, tvSubGenres} from '../constants/genreList';
 const url = 'https://api.themoviedb.org/3';
 
 const apiKey = API_KEY;
@@ -46,6 +46,12 @@ const getMoviePageData = async () => {
   const res = await Promise.all([...secondLoop]);
   return res;
 };
+const getTvPageData = async () => {
+  // const firstLoop = first.map(async item => getMovieTypeData(item));
+  const secondLoop = tvSubGenres.map(async item => getGenreData('tv', item.id));
+  const res = await Promise.all([...secondLoop]);
+  return res;
+};
 
 const searchPlaceholderFetch = async () => {
   const popularMovies = await getMovieTypeData('popular');
@@ -62,4 +68,5 @@ export {
   getMoviePageData,
   searchPlaceholderFetch,
   searchData,
+  getTvPageData,
 };
