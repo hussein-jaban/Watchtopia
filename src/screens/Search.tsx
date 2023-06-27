@@ -18,10 +18,8 @@ import {randomize} from '../utils/randomize';
 import {Card} from '../types/common.types';
 import useDebounce from '../hooks/useDebounce';
 import BlockSection from '../components/BlockSection';
-// import DropDownPicker from 'react-native-dropdown-picker';
 
 const Search = () => {
-  // const [tupe, setType] = useState('Apple');
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedValue = useDebounce<string>(searchTerm, 500);
   const [placeHolderData, setPlaceHolderData] = useState<Card[]>([]);
@@ -31,7 +29,7 @@ const Search = () => {
   });
   const {data: searchedData, isLoading: searchLoading} = useQuery({
     queryKey: ['search', debouncedValue],
-    queryFn: () => searchData('movie', searchTerm),
+    queryFn: () => searchData('multi', searchTerm),
   });
 
   const unifyData = useCallback(() => {
@@ -48,24 +46,11 @@ const Search = () => {
     setPlaceHolderData(randomize(result || []));
   }, [searchPlaceHolderData]);
 
-  // console.log('====================================');
-  // console.log('searchTerm', searchTerm);
-  // console.log('====================================');
-  // console.log('debouncedValue', debouncedValue);
-  // console.log('====================================');
-  // console.log('searchLoading', searchLoading);
-  // console.log('searchedData', searchedData);
-
   useEffect(() => {
     if (searchPlaceHolderData) {
       unifyData();
     }
   }, [searchPlaceHolderData, unifyData]);
-
-  // useEffect(() => {
-  //   // Do fetch here...
-  //   // Triggers when "debouncedValue" changes
-  // }, [debouncedValue]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -93,12 +78,6 @@ const Search = () => {
         ) : (
           <View />
         )}
-
-        {/* {value && (
-          <Pressable style={styles.closeIcon} onPress={() => setValue('')}>
-            <CloseIcon width={25} height={25} fill="#dbdbdb" />
-          </Pressable>
-        )} */}
       </View>
       <ScrollView>
         {!searchTerm ? (
@@ -150,7 +129,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     color: '#dbdbdb',
     backgroundColor: '#303030',
-    width: '70%',
+    width: '100%',
   },
   srchCont: {
     position: 'relative',
